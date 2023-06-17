@@ -1,0 +1,30 @@
+/* Add this code to Account/SignIn/PageCopy Content Snippet. If not available, then create one and paste the code */
+<style>
+#content {
+    height: 440px;
+    background-color: white;
+    padding: 2%;
+    width: 63%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    box-shadow: rgb(0 0 0 / 30%) 0px 19px 38px, rgb(0 0 0 / 22%) 0px 15px 12px;
+}
+body
+{
+    background-image: url(https://img.freepik.com/premium-photo/mockup-photo-frame-wooden-cabinet-with-beautiful-plants-3d-rendering_41470-3843.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+
+#submit-signin-local {
+    width: 208px;
+}
+a[title*="Forgot your password?"] {
+    margin-left: 3%;
+    border-style: none;
+    color: #664B8C;
+}
+
+</style>
