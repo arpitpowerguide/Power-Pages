@@ -1,0 +1,113 @@
+{% include 'Fetch XML Get Events' %}
+<div class="row sectionBlockLayout sectionPrimaryColor" style="height: 15px; min-height: 15px;"></div>
+<div class="row sectionBlockLayout sectionFixedStyle" style="display: flex; flex-wrap: wrap; text-align: left; min-height: 735px; background: url('/powerguidebanner'); padding: 8px; margin: 0px;background-size: cover;">
+  <div class="container" style="display: flex; flex-wrap: wrap;">
+    <div class="col-md-12 columnBlockLayout" style="flex-grow: 1;display: flex;flex-direction: column;min-width: 300px;padding: 16px;margin: 60px 0px;/* margin-left: auto; *//* margin-right: auto; */text-align: center;top:10%">
+      {% if user %}
+      <h1 style="color: white;font-size: xx-large;font-size: 58px;">Hey, {{ user.firstname | escape }}!</h1> {% else %}
+      <h1>Hello, Anonymous user!</h1>
+      <br>{% endif %}
+          <h2 style="color: white;">{{ snippets['Home/Greeting/Title'] }}</h2>
+      <h3 style="color: white;">{{ snippets['Home/Greeting/Desc'] }}</h3>
+      <br>
+      <a href="{{ sitemarkers['View Events'].url }}" style="margin-left: auto;margin-right: auto;background-color: #4d3273;width: 179px;height: 51px;padding-top: 9px;padding-left: 9px;color: white;border-radius: 10px;font-size: 22px;" type="submit">Welcome</a>
+    </div>
+  </div>
+</div>
+<div class="row sectionBlockLayout" style="display: flex; flex-wrap: wrap; margin: 0px; text-align: center; min-height: 374px; padding: 8px;">
+  <div class="container" style="display: flex; flex-wrap: wrap;">
+  <h1 style="margin-left: auto;margin-right: auto;font-weight: 600;">{% editable snippets "Power Guide Event Banner Title" default: 'In This Section' %}</h1>
+  <h3 style="margin-left: auto;margin-right: auto;font-size: large;color: #00000087;">{% editable snippets "Power Guide Event Banner Description" default: 'In This Section' %}</h3>
+    <div class="col-md-12 columnBlockLayout" style="flex-direction: column;margin-top: 4%;">
+      <h2 style="font-weight: 700;color:#4d3273;">Upcoming Events ({{my_query.results.entities.size}})</h2>
+    </div>
+  {% for result in my_query.results.entities %}
+      <div class="col-md-4 columnBlockLayout" style="flex-grow: 1; display: flex; flex-direction: column; min-width: 300px; padding: 16px; margin: 60px 0px;">
+      <img name="Feature 1.png" src={{result.crcf0_eventbannerimage}} style="width: 90%; height: auto; margin-left: auto; margin-right: auto;">
+      <h3>{{result.crcf0_eventname}}</h3>
+      <p style="font-size: 16px;text-align: center;">{{result.crcf0_eventstartdate}}</p> <br>
+      {% assign show_regsitration = settings["Power Guide Enable Session Registration"] | boolean | default:true %}
+      {% if show_regsitration %}
+      <button id="{{result.crcf0_powerguideeventsid}}" class="button" style="margin-left: 31%;margin-right: auto;background-color: #664b8c;border-style: none;font-size: 16px;border-radius: 25px;font-weight: 600;width: 132px;height: 46px;color: white;" type="button" onclick="Register(this.id)">Register</button>
+      {% endif %}
+    </div>
+  {% endfor %}
+  </div>
+</div>
+<div class="row sectionBlockLayout sectionPrimaryColor" style="height: 15px; min-height: 15px;"></div>
+<div class="row sectionBlockLayout" style="display: flex; flex-wrap: wrap; margin: 0px; text-align: left; min-height: 374px; padding: 8px;">
+  <div class="container" style="display: flex; flex-wrap: wrap;">
+    <div class="col-md-6 columnBlockLayout" style="flex-grow: 1; display: flex; flex-direction: column; min-width: 300px; padding: 16px; margin: 60px 0px;">
+        <img name="Secondary idea.png" src="/30dayschallengebanner" style="width: 100%;height: auto;margin-left: auto;margin-right: auto;border-radius: 10px;">
+    </div>
+    <div class="col-md-6 columnBlockLayout" style="flex-grow: 1; display: flex; flex-direction: column; min-width: 300px; padding: 16px; margin: 60px 0px;">
+      <h2 style="font-weight: 600;">{{ snippets['Power Guide 30 Days Learning Challenge Title'] }}</h2>
+      <p style="font-size: medium;">{{ snippets['Power Guide 30 Days Learning Challenge Description'] }}</p>
+      <p style="font-size: medium;">YouTube: <a>https://youtube/powerpages30dayslearning</a></p>
+      <p style="font-size: medium;">LinkedIn: <a>https://linkedin/powerpages30dayslearning</a></p>
+      <p style="font-size: medium;">Twitter: <a>https://twitter/powerpages30dayslearning</a></p>
+    </div>
+  </div>
+</div>
+<div class="row sectionBlockLayout sectionPrimaryColor" style="display: flex; flex-wrap: wrap; text-align: center; min-height: 300px; padding: 45px 8px; margin: 0px;">
+  <div class="container" style="display: flex; flex-wrap: wrap;">
+    <div class="col-md-6 columnBlockLayout" style="flex-grow: 1; display: flex; flex-direction: column; min-width: 300px; padding: 16px; margin: 60px 0px;">
+      <h2 style="color: #FFFFFF;">Call For Speakers</h2>
+      <h5 style="color: #FFFFFF;">Would you like to Speak at the Power Guide Community? Please fill in a form with your information.</h5>
+        {% webform name: 'Call For Speaker' %}
+    </div>
+  </div>
+</div>
+
+<div class="row sectionBlockLayout sectionPrimaryColor" style="display: flex; flex-wrap: wrap; text-align: center; min-height: 300px; padding: 45px 8px; margin: 0px;">
+  <div class="container" style="display: flex; flex-wrap: wrap;">
+    <div class="col-md-6 columnBlockLayout" style="flex-grow: 1; display: flex; flex-direction: column; min-width: 300px; padding: 16px; margin: 60px 0px;">
+      <h2 style="color: #FFFFFF;">View Events</h2>
+        {% include 'entity_list' key:'Active Power Guide Events' %}
+    </div>
+  </div>
+</div>
+
+<div class="row sectionBlockLayout sectionPrimaryColor" style="display: flex; flex-wrap: wrap; text-align: center; min-height: 300px; padding: 45px 8px; margin: 0px;">
+  <div class="container" style="display: flex; flex-wrap: wrap;">
+    <div class="col-md-6 columnBlockLayout" style="flex-grow: 1; display: flex; flex-direction: column; min-width: 300px; padding: 16px; margin: 60px 0px;">
+      <h2 style="color: #FFFFFF;"><a href="{{ settings["MeetupURL"] }}" style="margin-left: 0;margin-right: auto;background-color: white;width: 152px;height: 42px;padding: 10px;color: black;border-radius: 11px;" type="submit">View other community events</a></h2>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  // function to call Power Automate from Power Pages (in PREVIEW)
+  function Register(clicked_id)
+  {          
+         var _url = "https://powerpagestraining.powerappsportals.com/_api/cloudflow/v1.0/trigger/56b36dfc-e617-4dcd-8468-dd35d212af89";
+
+          var data = {};
+         
+          data["FirstName"] = '{{user.firstname}}';
+          data["LastName"] = '{{user.lastname}}';
+          data["Email"] = '{{user.emailaddress1}}';
+          data["Contact"] = '{{user.contactid}}';
+          data["Event"] = clicked_id;
+          
+            var payload = {};
+            payload.eventData = JSON.stringify(data);
+            shell.ajaxSafePost({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: _url,
+                    data: JSON.stringify(payload),
+                    processData: false,
+                    global: false,
+                })
+                .done(function (response) {
+                    const result = JSON.parse(response);
+                    var regId = result["registrationno"];
+                    alert("Registration Successful. Event Registration Id: "+regId);
+                })
+                .fail(function () {
+                    alert("failed");
+                });
+    }
+    </script>

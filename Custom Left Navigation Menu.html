@@ -1,0 +1,99 @@
+<!-- Paste the code in Content Snippet: Mobile Header and change your web link set name in the given coding line:{% assign primary_nav = weblinks["Default"] %}-->
+<span style="font-size: 22px;cursor:pointer;color: black;" onclick="openNav()">☰ </span>
+<a href="~/"><img src="/powerguidelogo" alt="Power Guide" style="width: 214px;margin-top: -14px;"></a>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body {
+    font-family: "Lato", sans-serif;
+  }
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  .sidenav a {
+    padding: 0px 8px 3px 32px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    margin-left: 26%;
+  }
+  .sidenav a:hover {
+    color: #f1f1f1;
+    text-decoration: underline !important;
+  }
+  .sidenav .closebtn {
+    position: absolute;
+    top: 20px;
+    font-size: 32px;
+    margin-left: 0px;
+    font-weight: normal;
+  }
+  #sublink_L1 {
+    font-size: 15px;
+    font-weight: normal;
+    margin-left: 5%;
+  }
+  #sublink_L2 {
+    font-size: 15px;
+    font-weight: normal;
+    margin-left: 15%;
+  }
+  @media screen and (max-height: 450px) {
+    .sidenav {
+      padding-top: 15px;
+    }
+    .sidenav a {
+      font-size: 18px;
+    }
+  }
+</style>
+<div id="mySidenav" class="sidenav" style="width: 0px;">
+  <img src="/powerguidelogo" style="width: 54.52%;margin-left: 22%;top: 0px;position: absolute;">
+  <br>
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  {% assign primary_nav = weblinks["Default"] %}
+  {% if primary_nav %}
+    {% for parentLink in primary_nav.weblinks %}
+    <a href="{{ parentLink.url }}">{{ parentLink.name | escape }}</a>
+    {% assign sublinks_L1 = parentLink.weblinks %}
+        {% for sublink_L1 in sublinks_L1 %}
+            {% if sublink_L1 %}
+                <a href="{{ sublink_L1.url }}">
+                <p id="sublink_L1"><span>- </span>{{ sublink_L1.name | escape }}</p>
+                </a>
+            {% endif %}
+            {% assign sublinks_L2 = sublink_L1.weblinks %}
+            {% for sublink_L2 in sublinks_L2 %}
+                {% if sublink_L2 %}
+                <a href="{{ sublink_L2.url }}">
+                <p id="sublink_L2"><span>- </span>{{ sublink_L2.name | escape }}</p>
+                </a>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+  {% endif %}
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+  function openNav() {
+    $("#mySidenav").css('width', '415px');
+    $("body").css('backgroundColor', '#eee');
+    $('.navbar').css('backgroundColor', '#eee');
+  }
+  function closeNav() {
+    $("#mySidenav").css('width', '0');
+    $("body").css('backgroundColor', 'White');
+    $('.navbar').css('backgroundColor', 'White');
+  }
+</script>
